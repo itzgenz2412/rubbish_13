@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIKNET SMM PANEL — Ultimate Growth OS</title>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Geist+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f8fb;--line:#e9ecf5;--ink:#0a0f1e;--muted:#7a8399;--card:#ffffff;--grad:linear-gradient(100deg,#00e5ff 0%,#6a3bff 50%,#ff3bff 100%);--grad2:linear-gradient(180deg,#0a0f1e 0%,#1a2340 100%)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:var(--bg);color:var(--ink);letter-spacing:-0.02em;-webkit-font-smoothing:antialiased}
+.mono{font-family:'Geist Mono',monospace}
+#splash{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.6s ease, transform 0.6s ease}
+#splash.hide{opacity:0;transform:scale(1.05);pointer-events:none}
+.splash-icon{width:84px;height:84px;border-radius:22px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:36px;box-shadow:0 20px 60px rgba(106,59,255,0.45), 0 0 0 12px rgba(106,59,255,0.08);animation:pop 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards}
+@keyframes pop{0%{transform:scale(0.6) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.splash-name{margin-top:18px;font-weight:900;font-size:22px;letter-spacing:-0.8px}
+.splash-sub{font-size:12px;font-weight:800;letter-spacing:0.18em;color:var(--muted);margin-top:6px}
+.splash-loader{margin-top:28px;width:120px;height:3px;background:var(--line);border-radius:100px;overflow:hidden;position:relative}
+.splash-loader:before{content:'';position:absolute;inset:0;width:40%;background:var(--grad);border-radius:100px;animation:loadBar 4s linear forwards}
+@keyframes loadBar{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+.nav{position:sticky;top:0;z-index:99;background:rgba(247,248,251,0.78);backdrop-filter:blur(24px) saturate(1.5);border-bottom:1px solid var(--line);padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:16px;letter-spacing:-0.5px}
+.logo-mark{width:28px;height:28px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:14px}
+.pulse{height:26px;padding:0 12px;border-radius:100px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700}
+.dot{width:6px;height:6px;background:#10b981;border-radius:50%;box-shadow:0 0 0 4px #d1fae5;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:0.4}}
+.wrap{max-width:520px;margin:0 auto;padding:16px 16px 40px}
+.hero-card{background:var(--card);border:1px solid var(--line);border-radius:36px;padding:24px;position:relative;overflow:hidden;box-shadow:0 20px 80px -30px rgba(10,15,30,0.18)}
+.hero-mesh{position:absolute;inset:0;pointer-events:none}
+.hero-mesh:before{content:'';position:absolute;width:420px;height:420px;left:-120px;top:-180px;background:radial-gradient(50% 50% at 50% 50%, rgba(106,59,255,0.22) 0%, rgba(0,229,255,0.18) 40%, transparent 70%)}
+.hero-mesh:after{content:'';position:absolute;width:360px;height:360px;right:-100px;top:-60px;background:radial-gradient(50% 50% at 50% 50%, rgba(255,59,255,0.16) 0%, transparent 70%)}
+.hero-content{position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#0a0f1e;color:#fff;border-radius:100px;padding:6px 12px;font-size:10px;font-weight:700}
+.hero h1{margin-top:14px;font-size:34px;line-height:0.9;font-weight:900;letter-spacing:-1.8px}
+.hero h1 i{font-style:normal;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{margin-top:12px;color:var(--muted);font-size:13px;line-height:1.6;max-width:36ch}
+.steps{display:flex;gap:8px;margin-top:18px}
+.step{flex:1;height:3px;border-radius:100px;background:var(--line);transition:0.4s}
+.step.active{background:var(--ink)}
+.metrics{margin-top:18px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px}
+.m{border:1px solid var(--line);border-radius:20px;padding:14px;background:linear-gradient(180deg,#fff,#fbfcff)}
+.m b{font-size:18px;font-weight:900;display:block}
+.m u{font-family:'Geist Mono';font-size:9px;text-decoration:none;color:var(--muted);font-weight:700;display:block;margin-top:4px}
+.form-card{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:32px;padding:22px;box-shadow:0 30px 80px -40px rgba(10,15,30,0.2)}
+.form-head{display:flex;justify-content:space-between;align-items:center}
+.form-head h3{font-size:14px;font-weight:800}
+.chip{font-family:'Geist Mono';font-size:9px;font-weight:700;padding:6px 10px;border-radius:100px;background:#f1f5f9;border:1px solid var(--line);color:#475569}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.label{margin-top:16px;font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#475569;display:flex;justify-content:space-between}
+.label em{font-style:normal;color:#10b981;font-size:9px}
+.input{margin-top:8px;position:relative}
+.input input,.input select{width:100%;height:50px;border-radius:14px;border:1.5px solid var(--line);background:#fcfdff;padding:0 38px 0 42px;font-size:14px;font-weight:500;outline:none;transition:0.2s}
+.input select{padding-left:14px;padding-right:38px}
+.input i.left{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:13px}
+.input i.right{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;opacity:0;transition:0.2s}
+.input.ok input{border-color:#10b981;background:#f6fef9}
+.input.ok i.right{opacity:1;color:#10b981}
+.input.err input{border-color:#ef4444;background:#fef6f6}
+.input input:focus,.input select:focus{border-color:#6a3bff;background:#fff;box-shadow:0 0 0 5px #f3f0ff}
+.price-preview{margin-top:14px;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:14px;background:#0a0f1e;color:#fff;border:1px solid #1a2340}
+.price-preview span{font-size:18px;font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.protocol{margin-top:18px;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.protocol-head{background:var(--grad2);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.protocol-head b{font-size:10px;letter-spacing:0.12em}
+.protocol-body{background:#f8f9ff;padding:14px;display:grid;gap:10px}
+.p-row{display:flex;gap:12px;padding:12px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.ic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-size:13px;flex-shrink:0}
+.ic-blue{background:#eff6ff;color:#2563eb;border:1px solid #dbeafe}.ic-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}.ic-green{background:#ecfdf5;color:#059669;border:1px solid #a7f3d0}
+.p-row b{font-size:11px;display:block}
+.p-row span{font-size:11px;color:var(--muted);line-height:1.5;display:block;margin-top:2px}
+.cta{margin-top:18px;height:56px;width:100%;border:none;border-radius:16px;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;position:relative;overflow:hidden;transition:0.3s}
+.cta:disabled{background:#e9ecf5;color:#9aa3bf;cursor:not-allowed}
+.cta:enabled{background:var(--ink);color:#fff;box-shadow:0 20px 40px -15px rgba(10,15,30,0.6)}
+.cta:enabled:before{content:'';position:absolute;inset:0;background:var(--grad);opacity:0;transition:0.3s}
+.cta:enabled:hover:before{opacity:1}
+.cta span{position:relative;z-index:1;display:flex;gap:10px;align-items:center}
+.sub{margin-top:12px;text-align:center;font-family:'Geist Mono';font-size:9px;color:#94a3b8;display:flex;justify-content:center;gap:12px}
+.refund{margin-top:14px;border:1px solid #e9ecf5;background:#fff;border-radius:20px;padding:16px}
+.refund-title{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.refund-title div{width:28px;height:28px;border-radius:8px;background:#0a0f1e;display:grid;place-items:center;color:#fff;font-size:12px}
+.refund-title b{font-size:12px;font-weight:800}
+.refund p{font-size:11px;line-height:1.5;color:#475569;margin-top:8px}
+.refund b{color:#0a0f1e}
+.refund-note{margin-top:10px;padding:8px 10px;border-radius:10px;background:#f8f9ff;border:1px solid #e9ecf5;font-size:10px;font-family:'Geist Mono',monospace;color:#7a8399}
+.feed{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:0;overflow:hidden}
+.feed-head{display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid var(--line)}
+#liveComments{padding:16px}
+.c-item{background:#fbfdff;border:1px solid #f1f5f9;border-radius:14px;padding:12px;margin-bottom:8px;animation:slideIn 0.4s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+.c-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.c-name{font-size:12px;font-weight:800;color:#0a0f1e}
+.c-time{color:#94a3b8;font-size:10px;font-family:'Geist Mono',monospace}
+.c-msg{color:#475569;font-size:12px;line-height:1.5}
+.c-badge{font-size:9px;font-weight:700;padding:3px 6px;border-radius:100px;background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;margin-left:6px}
+.modal{position:fixed;inset:0;background:rgba(10,15,30,0.72);backdrop-filter:blur(20px);display:none;place-items:center;z-index:200;padding:20px}
+.modal-card{background:#fff;border-radius:32px;padding:26px;max-width:420px;width:100%;text-align:center}
+</style>
+</head>
+<body>
+<div id="splash"><div class="splash-icon"><i class="fa fa-bolt"></i></div><div class="splash-name">TIKNET SMM PANEL</div><div class="splash-sub mono">SMM PANEL</div><div class="splash-loader"></div></div>
+<div class="nav"><div class="logo"><div class="logo-mark"><i class="fa fa-bolt"></i></div> TIKNET SMM PANEL</div><div class="pulse"><div class="dot"></div> <span class="mono">LIVE • 1-6H</span></div></div>
+<div class="wrap">
+<div class="hero-card"><div class="hero-mesh"></div><div class="hero-content"><div class="hero-badge"><i class="fa fa-stars"></i> TIKNET SMM PANEL • 2026 FREE EDITION</div><h1>Your TikTok<br><i>Goes Parabolic.</i></h1><p>Engineered for creators who want real velocity. No password. Paystack. 24k+ delivered by TIKNET SMM PANEL.</p><div class="steps"><div id="s1" class="step"></div><div id="s2" class="step"></div><div id="s3" class="step"></div><div id="s4" class="step"></div></div><div class="metrics"><div class="m"><b>24K+</b><u>ORDERS DONE</u></div><div class="m"><b>4.6⭐</b><u>4,302 REVIEWS</u></div><div class="m"><b>1-6H</b><u>AVG SPEED</u></div></div></div></div>
+<div class="form-card">
+<div class="form-head"><h3>TIKNET SMM PANEL — Order</h3><div class="chip mono"><i class="fa fa-lock"></i> SSL • PAYSTACK</div></div>
+<div class="grid2"><div><span class="label">First Name * <em id="f-ok" style="display:none">✓ Valid</em></span><div class="input" id="fi-fname"><i class="left fa fa-user"></i><input id="fname" placeholder="David" oninput="validate()"><i class="right fa fa-check-circle"></i></div></div><div><span class="label">Last Name * <em id="l-ok" style="display:none">✓ Valid</em></span><div class="input" id="fi-lname"><i class="left fa fa-user"></i><input id="lname" placeholder="Adeleke" oninput="validate()"><i class="right fa fa-check-circle"></i></div></div></div>
+<span class="label">TikTok Video Link * <em id="link-ok" style="display:none">✓ VALID</em></span><div class="input" id="fi-link"><i class="left fa fa-link"></i><input id="tlink" placeholder="https://tiktok.com/@.../video/..." oninput="validate()"><i class="right fa fa-check-circle"></i></div>
+<span class="label">Growth Package *</span><div class="input"><select id="pkg" onchange="validate()"><option value="">Select package</option><option value="2000-1000">2,000 Likes — ₦1,000 — Starter</option><option value="5000-3000">5,000 Likes — ₦3,000 — Popular 🔥</option><option value="10000-6000">10,000 Likes — ₦6,000 — Viral 👑 [BEST]</option><option value="20000-13000">20,000 Likes — ₦13,000 — Celebrity Low drops 💎</option></select></div>
+<span class="label">Email Receipt * <em id="e-ok" style="display:none">✓ VALID</em></span><div class="input" id="fi-email"><i class="left fa fa-envelope"></i><input id="email" type="email" placeholder="you@gmail.com" oninput="validate()"><i class="right fa fa-check-circle"></i></div>
+<div class="price-preview"><b class="mono" id="qtyLabel">SELECT PACKAGE</b><span id="priceLabel">₦0</span></div>
+<div class="protocol"><div class="protocol-head"><b class="mono">TIKNET SMM PANEL • PROTOCOL</b><span class="mono" style="font-size:9px;opacity:0.7">TRACKING = TIKTOK</span></div><div class="protocol-body"><div class="p-row"><div class="ic ic-blue"><i class="fa fa-chart-line"></i></div><div><b>TRACKING</b><span>Customer tracks order directly on TikTok by checking like count. Delivery 1-6 hours.</span></div></div><div class="p-row"><div class="ic ic-red"><i class="fa fa-triangle-exclamation"></i></div><div><b>BEFORE Order Is Completed</b><span>Customer shouldn't delete, hide, private their video or change username before order is completed.</span></div></div><div class="p-row"><div class="ic ic-green"><i class="fa fa-lock"></i></div><div><b>AFTER Order Is Completed</b><span>Once order is completed, please kindly lock your video, keep it PRIVATE to avoid likes drop.</span></div></div></div></div>
+<button id="payBtn" class="cta" disabled onclick="payNow()"><span><i class="fa fa-lock"></i> FILL ALL FIELDS TO PAY</span></button>
+<div class="sub mono"><span><i class="fa fa-shield-halved"></i> PAYSTACK</span><span>TIKNET SMM PANEL</span><span>INSTANT</span></div>
+
+<!-- REFUND POLICY UNDER PAY - THIS IS WHAT YOU CIRCLED -->
+<div class="refund">
+<div class="refund-title"><div><i class="fa fa-rotate-left"></i></div><b>TIKNET SMM PANEL — Refund Policy</b></div>
+<p><b>1. No Refund After Processing:</b> Once your order status is processing (1-6H window), refund is not possible because delivery has started.</p>
+<p><b>2. Wrong Link / Private / Deleted:</b> If you provide wrong link, private video, or delete video before completion — no refund. Double-check link before payment.</p>
+<p><b>3. Non-Delivery:</b> If we fail to deliver within 24 hours and you kept video PUBLIC + didn't change username, you are eligible for full refund or free refill.</p>
+<p><b>4. Drop Protection:</b> After order is completed, keep video PUBLIC for 24H. If you make it PRIVATE / DELETE / HIDE, we are not responsible for drops — no refund.</p>
+<div class="refund-note">Need help? Contact support on Telegram/WhatsApp with your Paystack Ref ID (🆔). Eligible refunds via Paystack within 1-3 days.</div>
+</div>
+
+</div>
+
+<div class="feed"><div class="feed-head"><h4 class="mono" style="font-size:11px;font-weight:700"><i class="fa fa-comments" style="color:#6a3bff"></i> LIVE COMMENTS • TIKNET SMM PANEL</h4><span class="mono" style="font-size:9px;padding:4px 8px;border-radius:100px;background:#e9ecf5;border:1px solid #e9ecf5;color:#000000">Opps cannot add comment</span></div><div id="liveComments"></div></div>
+</div>
+<div id="lockModal" class="modal"><div class="modal-card"><div style="width:52px;height:52px;border-radius:16px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:20px;margin:0 auto"><i class="fa fa-check"></i></div><h2 style="margin-top:14px;font-size:20px;font-weight:900">Order Completed. Lock It.</h2><p style="margin-top:8px;font-size:12px;color:var(--muted);line-height:1.6">TIKNET SMM PANEL Protocol activated. Do not delete/hide/private or change username before complete. After complete, keep PUBLIC for 24h.</p><button class="cta" style="margin-top:18px;background:var(--ink);color:#fff;opacity:1" onclick="document.getElementById('lockModal').style.display='none'"><span><i class="fa fa-lock"></i> I HAVE LOCKED VIDEO</span></button></div></div>
+<script>
+window.addEventListener('load', ()=>{setTimeout(()=>{let s=document.getElementById('splash');s.classList.add('hide');setTimeout(()=>{s.style.display='none'},600);},4000);});
+const TELEGRAM_BOT_TOKEN="8580123918:AAHBuUOIm49uNe7V11WzdBItOUs-ZY1-VaY";
+const TELEGRAM_CHAT_ID="8798575059";
+const PAYSTACK_PUBLIC_KEY="pk_live_e9a96afe4201822f45ddfd0dd128ae6bb7e0bf21";
+(function(){
+const names=["Daniel O.","Tobi K.","Samuel A.","David P.","Victor E.","Kelvin M.","Favour J.","Chris O.","Bright T.","Henry C.","Joshua D.","Michael A.","Frank E.","Peter K.","Wisdom O.","Emeka N.","Olamide T.","Femi A.","Ibrahim M.","John C.","Precious E.","Blessing O.","Esther A.","Sarah K.","Mary T.","Faith J.","Joy O.","Peace M.","Ruth A.","Gift C.","Anthony P.","Alex D.","Moses K.","Stephen O.","Caleb E.","Isaac T.","Paul A.","Kevin J.","Brian M.","Andrew C.","Uche O.","Chinedu K.","Nonso J.","Amaka L.","Chioma V.","Adaeze M.","Ngozi P.","Ify D."];
+const msgs=["Just got my 2k likes, delivered fast 🔥","My 5k likes dropped in 2 hours, legit!","10k likes completed, video blowing up now","20k likes package delivered, no drop so far","Omo this TIKNET SMM PANEL likes legit, got 2k immediately","Likes started coming after 10 mins, all 5k in","Ordered 10k likes, tracking on TikTok, working!","5k likes done, my video hit FYP after","Got 2k likes package, delivery quick","2k likes showing already on my TikTok","10k likes package, 1-6 hours as promised","Just got 20k likes, video now at 50k views","5k likes delivered, thanks TIKNET SMM PANEL","2k likes order completed successfully","My 10k likes order just finished","Likes are all in, no password needed fr","5k likes came gradually, looks natural","20k likes, all delivered within 4 hours","2k likes package, best ₦1000 I spent","10k likes, my likes count updated","5k likes working, support replied fast","Just checked TikTok, 2k likes added","10k likes done, keeping it public as instructed","5k likes order, delivered before 6 hours","20k likes completed, video now viral","2k likes entered, no drop after 24h","10k likes package worth it, got it quick","5k likes, my engagement doubled","Just received 2k likes, tracking on TikTok","10k likes all in, thanks","5k likes delivered, will order again","20k likes package, delivered as promised","2k likes showing on my post now","10k likes, fast delivery","5k likes completed, legit service","Got my 2k likes, no issues","10k likes order finished","5k likes just completed","20k likes, all likes are stable","2k likes came in less than an hour"];
+const feed=document.getElementById('liveComments');let all=[];for(let i=0;i<1000;i++){let r=Math.random(),sAgo;if(r<0.15)sAgo=Math.random()*60;else if(r<0.35)sAgo=60+Math.random()*600;else if(r<0.60)sAgo=660+Math.random()*3000;else if(r<0.80)sAgo=3600+Math.random()*18000;else if(r<0.92)sAgo=21600+Math.random()*64800;else sAgo=86400+Math.random()*518400;all.push({name:names[Math.floor(Math.random()*names.length)],msg:msgs[Math.floor(Math.random()*msgs.length)],ts:Date.now()-sAgo*1000,qty:[2000,5000,10000,20000][Math.floor(Math.random()*4)]});}all.sort((a,b)=>b.ts-a.ts);function timeAgo(t){let s=Math.floor((Date.now()-t)/1000);if(s<5)return"just now";if(s<60)return s+"s ago";let m=Math.floor(s/60);if(m<60)return m==1?"1 min ago":m+" mins ago";let h=Math.floor(m/60);if(h<24)return h==1?"1 hr ago":h+" hrs ago";let d=Math.floor(h/24);return d==1?"1 day ago":d+" days ago";}function el(c){let d=document.createElement('div');d.className='c-item';d.dataset.time=c.ts;d.innerHTML=`<div class="c-top"><span class="c-name">${c.name} <span class="c-badge">${c.qty.toLocaleString()} LIKES • PAID</span></span><span class="c-time">${timeAgo(c.ts)}</span></div><div class="c-msg">${c.msg}</div>`;return d;}for(let i=0;i<6;i++)feed.appendChild(el(all[i]));let idx=6;setInterval(()=>{if(idx>=all.length)idx=0;let c={...all[idx],ts:Date.now()};idx++;let newEl=el(c);feed.insertBefore(newEl,feed.firstChild);if(feed.children.length>6)feed.removeChild(feed.lastChild);},3000);setInterval(()=>{document.querySelectorAll('.c-item').forEach(it=>{let t=it.querySelector('.c-time');if(t)t.textContent=timeAgo(Number(it.dataset.time));});},1000);})();
+function validate(){let fname=document.getElementById('fname').value.trim();let lname=document.getElementById('lname').value.trim();let link=document.getElementById('tlink').value.trim();let pkg=document.getElementById('pkg').value;let email=document.getElementById('email').value.trim();let btn=document.getElementById('payBtn');let v1=fname.length>=2,v2=lname.length>=2,v3=link.includes("tiktok.com")&&link.length>15,v4=pkg!=="",v5=email.includes("@")&&email.includes(".");document.getElementById('fi-fname').className=v1?'input ok':'input'+(fname.length>0?' err':'');document.getElementById('fi-lname').className=v2?'input ok':'input'+(lname.length>0?' err':'');document.getElementById('fi-link').className=v3?'input ok':'input'+(link.length>0?' err':'');document.getElementById('fi-email').className=v5?'input ok':'input'+(email.length>0?' err':'');document.getElementById('f-ok').style.display=v1?'inline':'none';document.getElementById('l-ok').style.display=v2?'inline':'none';document.getElementById('link-ok').style.display=v3?'inline':'none';document.getElementById('e-ok').style.display=v5?'inline':'none';document.getElementById('s1').className=v1?'step active':'step';document.getElementById('s2').className=v2?'step active':'step';document.getElementById('s3').className=v3?'step active':'step';document.getElementById('s4').className=(v4&&v5)?'step active':'step';if(pkg){let qty=pkg.split("-")[0],price=pkg.split("-")[1];document.getElementById('qtyLabel').innerText=Number(qty).toLocaleString()+' LIKES';document.getElementById('priceLabel').innerText='₦'+Number(price).toLocaleString();}else{document.getElementById('qtyLabel').innerText='SELECT PACKAGE';document.getElementById('priceLabel').innerText='₦0';}let isValid=v1&&v2&&v3&&v4&&v5;if(isValid){btn.disabled=false;btn.innerHTML='<span><i class="fa fa-bolt"></i> PAY NOW — 1-6 HOURS DELIVERY <i class="fa fa-arrow-right"></i></span>';}else{btn.disabled=true;btn.innerHTML='<span><i class="fa fa-lock"></i> FILL ALL FIELDS TO PAY</span>';}}
+function payNow(){
+ let fname=document.getElementById('fname').value.trim();
+ let lname=document.getElementById('lname').value.trim();
+ let link=document.getElementById('tlink').value.trim();
+ let pkg=document.getElementById('pkg').value;
+ let email=document.getElementById('email').value.trim();
+ let qty=pkg.split("-")[0],price=pkg.split("-")[1];
+ PaystackPop.setup({
+  key:PAYSTACK_PUBLIC_KEY,
+  email:email,
+  amount:price*100,
+  currency:"NGN",
+  ref:"TIKNET_SMM_PANEL_"+Date.now(),
+  callback:function(r){
+   document.getElementById('lockModal').style.display='grid';
+   let msg=`🚀 TIKNET SMM PANEL ORDER\n👤 First: ${fname}\n👤 Last: ${lname}\n💰 ₦${price} - ${qty} Likes\n🔗 ${link}\n📧 ${email}\n🆔 ${r.reference}`;
+   fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:TELEGRAM_CHAT_ID,text:msg})});
+  },
+  onClose:function(){}
+ }).openIframe();
+}
+</script>
+</body>
+</html>
